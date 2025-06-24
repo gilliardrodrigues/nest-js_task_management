@@ -4,21 +4,22 @@ import { GetTasksFilterDTO } from 'src/tasks/dto/get-tasks-filter.dto';
 import { TaskStatus } from 'src/tasks/enums/task-status.enum';
 import { TasksRepository } from 'src/tasks/repository/tasks.repository';
 import { Task } from 'src/tasks/task.entity';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class TasksService {
   constructor(private readonly tasksRepository: TasksRepository) {}
 
-  getTasks(filterDTO: GetTasksFilterDTO): Promise<Task[]> {
-    return this.tasksRepository.getTasks(filterDTO);
+  getTasks(filterDTO: GetTasksFilterDTO, user: User): Promise<Task[]> {
+    return this.tasksRepository.getTasks(filterDTO, user);
   }
 
-  createTask(createTaskDTO: CreateTaskDTO): Promise<Task> {
-    return this.tasksRepository.createTask(createTaskDTO);
+  createTask(createTaskDTO: CreateTaskDTO, user: User): Promise<Task> {
+    return this.tasksRepository.createTask(createTaskDTO, user);
   }
 
-  async getTaskById(id: string): Promise<Task> {
-    const taskFound = await this.tasksRepository.findById(id);
+  async getTaskById(id: string, user: User): Promise<Task> {
+    const taskFound = await this.tasksRepository.findById(id, user);
 
     if (!taskFound) {
       throw new NotFoundException(`Task with ID "${id}" not found`);
@@ -27,16 +28,16 @@ export class TasksService {
     return taskFound;
   }
 
-  async deleteTask(id: string): Promise<void> {
-    const success = await this.tasksRepository.removeById(id);
+  async deleteTask(id: string, user: User): Promise<void> {
+    const success = await this.tasksRepository.removeById(id, user);
 
     if (!success) {
       throw new NotFoundException(`Task with ID "${id}" not found`);
     }
   }
 
-  async updateTaskStatus(id: string, newStatus: TaskStatus): Promise<Task> {
-    const taskFound = await this.getTaskById(id);
+  async updateTaskStatus(id: string, newStatus: TaskStatus, user: User): Promise<Task> {
+    const taskFound = await this.getTaskById(id, user);
 
     taskFound.status = newStatus;
     return this.tasksRepository.saveTask(taskFound);
