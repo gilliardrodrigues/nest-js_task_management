@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from 'src/auth/auth.module';
 import { TasksModule } from 'src/tasks/tasks.module';
 
 @Module({
@@ -19,6 +20,7 @@ import { TasksModule } from 'src/tasks/tasks.module';
       autoLoadEntities: true,
       synchronize: Boolean(process.env.TYPEORM_SYNCHRONIZE),
     }),
+    AuthModule,
   ],
   controllers: [],
   providers: [],
