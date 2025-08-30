@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/auth/auth.module';
-import { configValidationSchema } from 'src/config.schema';
-import { TasksModule } from 'src/tasks/tasks.module';
+import { AuthModule } from './auth/auth.module';
+import { configValidationSchema } from './config.schema';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [

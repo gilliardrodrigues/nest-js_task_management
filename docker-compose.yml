@@ -13,10 +13,12 @@ services:
       - NODE_ENV=${NODE_ENV}
     restart: always
     command: npm run start:dev
+    networks:
+      - pg-network
 
-  db:
+  tasks-db:
     image: postgres:latest
-    container_name: postgres
+    container_name: postgres-tasks
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -26,9 +28,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+    networks:
+      - pg-network
 
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     container_name: pgadmin
     ports:
       - '5050:80'
@@ -38,7 +42,13 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     restart: unless-stopped
+    networks:
+      - pg-network
 
 volumes:
   pgadmin_data:
   postgres_data:
+
+networks:
+  pg-network:
+    external: true

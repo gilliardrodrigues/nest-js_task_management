@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { JwtPayload } from 'src/auth/jwt.payload.interface';
-import { UserErrors } from 'src/users/errors/user-errors.enum';
+import { JwtPayload } from '../auth/jwt.payload.interface';
+import { UserErrors } from '../users/errors/user-errors.enum';
 import { UsersRepository } from '../users/repository/users.repository';
 import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
 

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { UserErrors } from 'src/users/errors/user-errors.enum';
-import { User } from 'src/users/user.entity';
 import { DataSource, Repository } from 'typeorm';
 import { AuthCredentialsDTO } from '../../auth/dto/auth-credentials.dto';
+import { UserErrors } from '../../users/errors/user-errors.enum';
+import { User } from '../../users/user.entity';
 
 @Injectable()
 export class UsersRepository {
